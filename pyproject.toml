@@ -1,0 +1,16 @@
+[project]
+name = "fpga-hardware-timestamping-core"
+version = "0.1.0"
+description = "Hardware timestamp ordering and skew analysis for feed events."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Ephraim Shaw", email = "shawsignaldev@proton.me" }]
+keywords = ['timestamping', 'fpga', 'latency', 'market-data']
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
