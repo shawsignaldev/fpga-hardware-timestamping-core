@@ -3,13 +3,13 @@ import hashlib
 import json
 import os
 from pathlib import Path
-import tomllib
 
 import pytest
+import tomllib
 
+from fpga_hardware_timestamping_core.analysis import analyze_events
 from fpga_hardware_timestamping_core.cli import main
 from fpga_hardware_timestamping_core.csvio import read_csv_events
-from fpga_hardware_timestamping_core.analysis import analyze_events
 from fpga_hardware_timestamping_core.reporting import render_json_report
 
 

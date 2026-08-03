@@ -1,12 +1,13 @@
 from pathlib import Path
 
+import pytest
+
 from fpga_hardware_timestamping_core.timestamping import (
     TimestampedEvent,
     max_skew_ns,
     monotonic_violations,
     normalize,
 )
-import pytest
 
 
 def test_normalize_orders_events_after_channel_offset():

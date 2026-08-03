@@ -21,8 +21,8 @@ from .timestamping import (
 )
 
 __all__ = [
-    "AnalysisResult",
     "AnalysisConfiguration",
+    "AnalysisResult",
     "ChannelCalibration",
     "CounterUnwrapper",
     "MetricSummary",

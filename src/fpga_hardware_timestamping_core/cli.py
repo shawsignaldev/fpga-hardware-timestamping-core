@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-from importlib import resources
 import os
-from pathlib import Path
 import tempfile
-from typing import Sequence
+from collections.abc import Sequence
+from importlib import resources
+from pathlib import Path
 
 from .analysis import analyze_events
 from .calibration import ChannelCalibration

@@ -3,7 +3,6 @@ from __future__ import annotations
 import re
 from typing import Any
 
-
 _ASCII_INTEGER = re.compile(r"[+-]?[0-9]+\Z")
 _CHUNK_DIGITS = 9
 _CHUNK_BASE = 10**_CHUNK_DIGITS

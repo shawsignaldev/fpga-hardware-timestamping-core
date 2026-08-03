@@ -1,15 +1,14 @@
 from __future__ import annotations
 
 import csv
-from contextlib import contextmanager
 import io
+from contextlib import contextmanager
 from pathlib import Path
 from threading import RLock
 from typing import TextIO
 
 from .integers import parse_ascii_integer
 from .timestamping import TimestampedEvent
-
 
 REQUIRED_HEADER = ("channel", "sequence", "raw_ns")
 FULL_HEADER = (*REQUIRED_HEADER, "arrival_ns")

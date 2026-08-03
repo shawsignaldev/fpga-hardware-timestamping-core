@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-
 PPB_SCALE = 1_000_000_000
 
 

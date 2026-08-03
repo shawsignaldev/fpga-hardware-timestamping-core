@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field
 from fractions import Fraction
-from typing import Iterable, Mapping
+from itertools import pairwise
 
 from .calibration import ChannelCalibration
 from .counters import CounterUnwrapper
@@ -114,8 +115,7 @@ def _compute_metrics(events: tuple[OrderedEvent, ...]) -> TimingMetrics:
     for channel_latencies in latency_by_channel.values():
         ordered_latencies = [value for _, value in sorted(channel_latencies)]
         jitter_values.extend(
-            abs(current - previous)
-            for previous, current in zip(ordered_latencies, ordered_latencies[1:])
+            abs(current - previous) for previous, current in pairwise(ordered_latencies)
         )
 
     return TimingMetrics(

@@ -164,8 +164,10 @@ def render_markdown_report(result: AnalysisResult) -> str:
                 "",
                 f"- Offset: {_format_number(calibration['offset_ns'])} ns",
                 f"- Drift: {_format_number(calibration['drift_ppb'])} ppb",
-                "- Reference timestamp: "
-                f"{_format_number(calibration['reference_ns'])} ns",
+                (
+                    "- Reference timestamp: "
+                    f"{_format_number(calibration['reference_ns'])} ns"
+                ),
                 "",
             ]
         )

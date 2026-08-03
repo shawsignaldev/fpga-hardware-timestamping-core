@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import unicodedata
 
-
 _UNSAFE_IDENTIFIER_CATEGORIES = frozenset({"Cc", "Cf", "Cs"})
 
 
