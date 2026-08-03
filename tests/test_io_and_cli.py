@@ -5,7 +5,11 @@ import os
 from pathlib import Path
 
 import pytest
-import tomllib
+
+try:
+    import tomllib
+except ModuleNotFoundError:  # pragma: no cover - exercised by the Python 3.10 CI job
+    import tomli as tomllib
 
 from fpga_hardware_timestamping_core.analysis import analyze_events
 from fpga_hardware_timestamping_core.cli import main

@@ -17,7 +17,12 @@ keywords = ['timestamping', 'fpga', 'latency', 'market-data']
 fpga-timestamp-report = "fpga_hardware_timestamping_core.cli:main"
 
 [project.optional-dependencies]
-dev = ["build>=1.2", "pytest>=8.0", "ruff>=0.12"]
+dev = [
+    "build>=1.2",
+    "pytest>=8.0",
+    "ruff==0.16.1",
+    "tomli>=2.0; python_version < '3.11'",
+]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
