@@ -1,16 +1,28 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "fpga-hardware-timestamping-core"
-version = "0.1.0"
-description = "Hardware timestamp ordering and skew analysis for feed events."
+version = "0.2.0"
+description = "Reference model and RTL for multi-channel FPGA timestamp normalization."
 readme = "README.md"
-requires-python = ">=3.10"
-license = { text = "MIT" }
+requires-python = ">=3.10,<3.15"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "Ephraim Shaw", email = "shawsignaldev@proton.me" }]
 keywords = ['timestamping', 'fpga', 'latency', 'market-data']
 
+[project.scripts]
+fpga-timestamp-report = "fpga_hardware_timestamping_core.cli:main"
+
 [project.optional-dependencies]
-dev = ["pytest>=8.0"]
+dev = ["build>=1.2", "pytest>=8.0", "ruff>=0.12"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
+addopts = "-p no:cacheprovider"
+
+[tool.setuptools.package-data]
+fpga_hardware_timestamping_core = ["data/*.csv"]

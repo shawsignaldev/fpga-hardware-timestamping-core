@@ -4,4 +4,10 @@ __pycache__/
 .venv/
 build/
 dist/
-.shaw_generated_batch
+*.vvp
+
+# Project fixtures are source artifacts even when a global ignore excludes CSV.
+!examples/
+!examples/sample_timestamps.csv
+!src/fpga_hardware_timestamping_core/data/
+!src/fpga_hardware_timestamping_core/data/sample_timestamps.csv

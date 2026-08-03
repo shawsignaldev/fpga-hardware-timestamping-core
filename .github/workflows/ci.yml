@@ -1,14 +1,42 @@
 name: CI
+
 on:
   push:
   pull_request:
+
+permissions:
+  contents: read
+
 jobs:
-  test:
+  python:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: ${{ matrix.python-version }}
       - run: python -m pip install -e ".[dev]"
+      - run: python -m ruff check .
+      - run: python -m ruff format --check .
       - run: python -m pytest -q
+      - run: python -m fpga_hardware_timestamping_core --format json --output build/timestamp-report.json
+      - run: python -m build
+
+  rtl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Icarus Verilog
+        run: sudo apt-get update && sudo apt-get install --yes --no-install-recommends iverilog yosys
+      - name: Compile and simulate RTL
+        run: make -C rtl test
+      - name: Synthesize representative configurations
+        run: |
+          yosys -p "read_verilog -sv rtl/timestamp_unwrapper.sv; hierarchy -check -top timestamp_unwrapper -chparam COUNTER_WIDTH 8 -chparam EPOCH_WIDTH 4; synth -top timestamp_unwrapper; check -assert"
+          yosys -p "read_verilog -sv rtl/timestamp_normalizer.sv; hierarchy -check -top timestamp_normalizer -chparam TIMESTAMP_WIDTH 32 -chparam DRIFT_WIDTH 32; synth -top timestamp_normalizer; check -assert"
+          yosys -p "read_verilog -sv rtl/sequence_order_guard.sv; hierarchy -check -top sequence_order_guard -chparam SEQUENCE_WIDTH 16 -chparam TIMESTAMP_WIDTH 32; synth -top sequence_order_guard; check -assert"
